@@ -1,2 +1,5 @@
 # MicroChallenge-2-Energy-Bot
-Contains documentation on some steps taken to building  our Energy Chat Bot and Monitor
+Welcome to the second microchallenge taken place during our Masters in Design for Emergent Futures at IAAC and ELISAVA in Barcelona.
+
+# The Goal of this Challenge
+

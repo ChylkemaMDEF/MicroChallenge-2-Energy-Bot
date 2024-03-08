@@ -176,14 +176,14 @@ All the rest of the code deals with managing and displaying the results on the E
 # The Outcomes
 ## Dan Working and Generating Images
 The way Dan works currently is that he takes a variety of inputs coming in through telegram and holds a conversation with the user. Next to this he is also constantly taking input from the plug and logging this into a google sheets. This database allows for him to get a better understanding of the users past behavior and give specific tips based on the persons personal usage. There are still a few bugs but that is for us to work out in the future. Below a video is shown in which you can see the interaction that one has with Dan.
-(https://github.com/ChylkemaMDEF/MicroChallenge-2-Energy-Bot/assets/147051108/5b2fbfd3-4215-4f62-ab30-6465decb572b)
-![image](https://github.com/ChylkemaMDEF/MicroChallenge-2-Energy-Bot/assets/147051108/01cc86fe-8fb3-43b0-9caf-b33bc7ba81a6)
 
-[<img src="(https://github.com/ChylkemaMDEF/MicroChallenge-2-Energy-Bot/assets/147051108/01cc86fe-8fb3-43b0-9caf-b33bc7ba81a6" width="300" height="600"
-/>](https://www.youtube.com/embed/APOPm01BVrk)
 _Outputted Stickers_
 
+As you can see in the video when you ask for energy saving tips it also automatically sends a generated image for a sticker that you can use. For this we then decided to make a physical sticker that people could take and stick to dfferent appliances in a way to raise awareness and potentially in the future also be specific to their own usage. This was just a fun addition we created however for the functionaloty of the system one could keep them as a digital sticker or omit it to save on the energy usage that is needed to run the machine, taking into consideration the use of an AI image generator.  
+
 ## The Current state of Energy Measurer
+
+At the moment we have a functioning energy monitor that we have built with easy to source components from a local electronics store. At the moment there is a slight issue with the calculation of the ampere and voltage of the measurements but this is most likely due to the type of wire we are trying to measure over. As a professor mentioned to us it is not possible to use current transformers over geenral appliance wires as they contain three different wires running through it not just one that you need. In turn this means our monitoring device can only be used as we designed in breaker boxes. This is fine as you still do not need to cut or open wires just clip and it is ready to go.
 ![Ontwerp zonder titel](https://github.com/ChylkemaMDEF/MicroChallenge-2-Energy-Bot/assets/147051108/eb4e8ff9-9d79-4751-a431-341cff0a1fed)
 
 

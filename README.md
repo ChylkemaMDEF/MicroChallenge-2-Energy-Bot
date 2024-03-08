@@ -177,15 +177,24 @@ All the rest of the code deals with managing and displaying the results on the E
 ## Dan Working and Generating Images
 The way Dan works currently is that he takes a variety of inputs coming in through telegram and holds a conversation with the user. Next to this he is also constantly taking input from the plug and logging this into a google sheets. This database allows for him to get a better understanding of the users past behavior and give specific tips based on the persons personal usage. There are still a few bugs but that is for us to work out in the future. Below a video is shown in which you can see the interaction that one has with Dan.
 
+https://github.com/ChylkemaMDEF/MicroChallenge-2-Energy-Bot/assets/147051108/35d32416-1f41-4a14-8c6d-e67663de0a42
+
 _Outputted Stickers_
 
 As you can see in the video when you ask for energy saving tips it also automatically sends a generated image for a sticker that you can use. For this we then decided to make a physical sticker that people could take and stick to dfferent appliances in a way to raise awareness and potentially in the future also be specific to their own usage. This was just a fun addition we created however for the functionaloty of the system one could keep them as a digital sticker or omit it to save on the energy usage that is needed to run the machine, taking into consideration the use of an AI image generator.  
+![Ontwerp zonder titel (1)](https://github.com/ChylkemaMDEF/MicroChallenge-2-Energy-Bot/assets/147051108/dc17ed3a-15e2-4cfc-94a4-849b00022b9c)
 
 ## The Current state of Energy Measurer
 
-At the moment we have a functioning energy monitor that we have built with easy to source components from a local electronics store. At the moment there is a slight issue with the calculation of the ampere and voltage of the measurements but this is most likely due to the type of wire we are trying to measure over. As a professor mentioned to us it is not possible to use current transformers over geenral appliance wires as they contain three different wires running through it not just one that you need. In turn this means our monitoring device can only be used as we designed in breaker boxes. This is fine as you still do not need to cut or open wires just clip and it is ready to go.
+At the moment we have a functioning energy monitor that we have built with easy to source components from a local electronics store. There is a slight issue with the calculation of the ampere and voltage of the measurements but this is most likely due to the type of wire we are trying to measure over. As a professor mentioned to us it is not possible to use current transformers over geenral appliance wires as they contain three different wires running through it not just one that you need. In turn this means our monitoring device can only be used as we designed in breaker boxes. This is fine as you still do not need to cut or open wires just clip and it is ready to go. Furthermore, at the moment it has a screen that displays three different values that the arduino code is calculating. 
+
+1. The energy monitored at that moment
+2. The total energy of the day measured
+3. The cost in cents according to the energy bill costs inputted
+
 ![Ontwerp zonder titel](https://github.com/ChylkemaMDEF/MicroChallenge-2-Energy-Bot/assets/147051108/eb4e8ff9-9d79-4751-a431-341cff0a1fed)
 
+https://github.com/ChylkemaMDEF/MicroChallenge-2-Energy-Bot/assets/147051108/0d51c493-b402-4d9b-8b2b-246fc999e8e4
 
 # Reflecting and Moving Forward
 

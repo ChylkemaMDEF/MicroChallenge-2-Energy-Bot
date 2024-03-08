@@ -1,0 +1,1824 @@
+[
+    {
+        "id": "865a3d0e33153e50",
+        "type": "tab",
+        "label": "MicroChallenge 2",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "10e65b3b63705e1e",
+        "type": "http in",
+        "z": "865a3d0e33153e50",
+        "name": "energy consumption plug",
+        "url": "/data",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 170,
+        "y": 400,
+        "wires": [
+            [
+                "791ebce909102950"
+            ]
+        ]
+    },
+    {
+        "id": "791ebce909102950",
+        "type": "split",
+        "z": "865a3d0e33153e50",
+        "name": "Plug Data",
+        "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "x": 360,
+        "y": 380,
+        "wires": [
+            [
+                "772ef217524fb76e",
+                "8df1a30344b65a32",
+                "1a444d8f02992f43"
+            ]
+        ]
+    },
+    {
+        "id": "507a97df1fafb024",
+        "type": "inject",
+        "z": "865a3d0e33153e50",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"value\":{\"today_energy\":316,\"total_energy\":2}}",
+        "payloadType": "json",
+        "x": 230,
+        "y": 360,
+        "wires": [
+            [
+                "791ebce909102950"
+            ]
+        ]
+    },
+    {
+        "id": "772ef217524fb76e",
+        "type": "function",
+        "z": "865a3d0e33153e50",
+        "name": "Sheets Input Plug",
+        "func": "// Extract the payload of today_energy from the incoming message object\nvar today_energy = msg.payload.today_energy;\n\n// Construct the message to send to the Google Sheets node\nvar message = {\n    payload: today_energy,\n    topic: \"Google Sheets\" // Set an appropriate topic for identification\n};\n\n// Send the message to the Google Sheets node\nreturn message;",
+        "outputs": 4,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 530,
+        "y": 380,
+        "wires": [
+            [
+                "029fea425e72d52e",
+                "4f5bdbc6798e4b07"
+            ],
+            [],
+            [],
+            []
+        ],
+        "outputLabels": [
+            "today_energy",
+            "month_energy",
+            "today_runtime",
+            "month_runtime"
+        ]
+    },
+    {
+        "id": "029fea425e72d52e",
+        "type": "debug",
+        "z": "865a3d0e33153e50",
+        "name": "Debug TodayEnergy",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 760,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "907477794f3c8cae",
+        "type": "inject",
+        "z": "865a3d0e33153e50",
+        "name": "Peak",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "30",
+        "payloadType": "num",
+        "x": 230,
+        "y": 460,
+        "wires": [
+            [
+                "89f62093267f4965"
+            ]
+        ]
+    },
+    {
+        "id": "e2dccb4235064484",
+        "type": "debug",
+        "z": "865a3d0e33153e50",
+        "name": "Gsheets",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 760,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "5a3eabbbe35bb996",
+        "type": "GSheet",
+        "z": "865a3d0e33153e50",
+        "creds": "6f6f8a314fcab26f",
+        "method": "append",
+        "action": "",
+        "sheet": "1qNJcK6MwHwlAldar82y7VS9cbZbV9tZ5UBseviee-v0",
+        "cells": "Sheet3!A2:B",
+        "flatten": false,
+        "name": "Sheets_Context+Peak",
+        "x": 540,
+        "y": 480,
+        "wires": [
+            [
+                "e2dccb4235064484"
+            ]
+        ]
+    },
+    {
+        "id": "d269c2bebd0ab3e8",
+        "type": "inject",
+        "z": "865a3d0e33153e50",
+        "name": "What",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Coffee",
+        "payloadType": "str",
+        "x": 230,
+        "y": 500,
+        "wires": [
+            [
+                "89f62093267f4965"
+            ]
+        ]
+    },
+    {
+        "id": "89f62093267f4965",
+        "type": "join",
+        "z": "865a3d0e33153e50",
+        "name": "",
+        "mode": "custom",
+        "build": "array",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": false,
+        "timeout": "",
+        "count": "2",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 370,
+        "y": 480,
+        "wires": [
+            [
+                "5a3eabbbe35bb996"
+            ]
+        ]
+    },
+    {
+        "id": "4f5bdbc6798e4b07",
+        "type": "GSheet",
+        "z": "865a3d0e33153e50",
+        "creds": "6f6f8a314fcab26f",
+        "method": "append",
+        "action": "",
+        "sheet": "1qNJcK6MwHwlAldar82y7VS9cbZbV9tZ5UBseviee-v0",
+        "cells": "Sheet1!A2:B",
+        "flatten": false,
+        "name": "Sheets_EnergyToday1",
+        "x": 760,
+        "y": 400,
+        "wires": [
+            [
+                "610cbfd97c24f769"
+            ]
+        ]
+    },
+    {
+        "id": "610cbfd97c24f769",
+        "type": "debug",
+        "z": "865a3d0e33153e50",
+        "name": "Gsheets",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 940,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "96f2d3650a024908",
+        "type": "telegram receiver",
+        "z": "865a3d0e33153e50",
+        "name": "",
+        "bot": "dc26e3f0a8566d25",
+        "saveDataDir": "",
+        "filterCommands": false,
+        "x": 130,
+        "y": 840,
+        "wires": [
+            [
+                "136cf61ae8a8dc8c",
+                "85a448bde9f99fea"
+            ],
+            [
+                "136cf61ae8a8dc8c",
+                "85a448bde9f99fea"
+            ]
+        ]
+    },
+    {
+        "id": "85a448bde9f99fea",
+        "type": "debug",
+        "z": "865a3d0e33153e50",
+        "name": "debug 12",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 380,
+        "y": 920,
+        "wires": []
+    },
+    {
+        "id": "bcccddd328733e24",
+        "type": "telegram sender",
+        "z": "865a3d0e33153e50",
+        "name": "",
+        "bot": "dc26e3f0a8566d25",
+        "haserroroutput": false,
+        "outputs": 1,
+        "x": 950,
+        "y": 840,
+        "wires": [
+            [
+                "10e4466e8fa55d25"
+            ]
+        ]
+    },
+    {
+        "id": "136cf61ae8a8dc8c",
+        "type": "function",
+        "z": "865a3d0e33153e50",
+        "name": "Set Budget Command",
+        "func": "// Assuming the message text is in the format: /setbudget 3000\nlet msgText = msg.payload.content; // Make sure this aligns with how the Telegram node provides the message\nlet parts = msgText.split(' '); // Split the message by space\n\n// Check if the command is to set budget\nif (parts[0] === '/setbudget' && parts.length === 2) {\n    let budget = parseFloat(parts[1]); // Use parseFloat to handle decimal values\n    let chatId = msg.payload.chatId; // Dynamically obtain the chat ID from the incoming message\n\n    if (!isNaN(budget) && budget > 0) {\n        // Valid budget amount, store it in the flow context\n        flow.set('energyBudget', budget);\n        flow.set('userChatId', chatId);  // Store the chat ID in the context\n\n        \n        // Prepare a confirmation message\n        msg.payload = {\n            chatId: chatId, // Use the obtained chat ID\n            type: 'message',\n            content: 'Budget set to ' + budget + ' watts per day.'\n        };\n    } else {\n        // Handle invalid budget amount\n        msg.payload = {\n            chatId: chatId, // Use the obtained chat ID\n            type: 'message',\n            content: 'Invalid budget amount. Please send a number like this: /setbudget 3000'\n        };\n    }\n\n    // Direct the message to the second output for Telegram response\n    return [null, msg];\n} else {\n    // If not a set budget command, you might want to handle other commands or pass them through\n    // Direct the message to the first output for further processing or handling of other commands\n    return [msg, null];\n}\n",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 840,
+        "wires": [
+            [],
+            [
+                "bcccddd328733e24"
+            ]
+        ]
+    },
+    {
+        "id": "a91b134405455f42",
+        "type": "switch",
+        "z": "865a3d0e33153e50",
+        "name": "Budget Alert",
+        "property": "payload.alert",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "true",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "false",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 790,
+        "y": 720,
+        "wires": [
+            [
+                "bcccddd328733e24",
+                "648460375491092a"
+            ],
+            [
+                "bcccddd328733e24"
+            ]
+        ]
+    },
+    {
+        "id": "57373b825f9b0d71",
+        "type": "inject",
+        "z": "865a3d0e33153e50",
+        "name": "budget setting test",
+        "props": [
+            {
+                "p": "payload.chatId",
+                "v": "6596640884",
+                "vt": "num"
+            },
+            {
+                "p": "payload.type",
+                "v": "message",
+                "vt": "str"
+            },
+            {
+                "p": "payload.content",
+                "v": "budget set to 3000 watts",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 650,
+        "y": 920,
+        "wires": [
+            [
+                "bcccddd328733e24"
+            ]
+        ]
+    },
+    {
+        "id": "10e4466e8fa55d25",
+        "type": "debug",
+        "z": "865a3d0e33153e50",
+        "name": "debug 13",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1100,
+        "y": 920,
+        "wires": []
+    },
+    {
+        "id": "1a444d8f02992f43",
+        "type": "function",
+        "z": "865a3d0e33153e50",
+        "name": "Set Energy Budget",
+        "func": "// Retrieve the daily budget and consumption data from the flow context\nlet budget = flow.get('energyBudget') || 0; // Default to 0 if not set\n//let consumptionToday = flow.get('consumptionToday') || 0;\nlet userChatId = flow.get('userChatId') || null; // The user's chat ID should be set when the budget is set\n\n// Assume msg.payload contains the latest energy consumption reading\nlet consumptionToday = msg.payload.today_energy;\n//let newConsumption = msg.payload.today_energy;\n//let consumptionToday += newConsumption;\n\n// Update the daily consumption in the flow context\n//flow.set('consumptionToday', consumptionToday);\n\n// Check the consumption against the budget and create appropriate alerts\nif (budget > 0) { // Ensure there is a budget set\n    if (consumptionToday >= budget) {\n        // User has exceeded their budget\n        msg.payload = {\n            alert: \"true\",\n            type: \"message\",\n            content: `Alert: You have exceeded your daily energy budget of ${budget} watts. Current usage: ${consumptionToday} watts.`,\n            chatId: userChatId\n        };\n    } else if (consumptionToday >= budget * 0.9) {\n        // User is approaching their budget\n        msg.payload = {\n            alert: \"true\",\n            type: \"message\",\n            content: `Warning: You are nearing your daily energy budget of ${budget} watts. Current usage: ${consumptionToday} watts.`,\n            chatId: userChatId\n        };\n    } else {\n        // Consumption is normal, no alert needed\n        msg.payload = {\n            alert: \"false\",\n            type: \"message\",\n            data: { consumptionToday, budget }\n        };\n    }\n} else {\n    // No budget set, so no alert is needed\n    msg.payload = {\n        alert: \"false\",\n        type: \"message\",\n        content: \"No energy budget set.\",\n        data: { consumptionToday }\n    };\n}\n\n// Return the message object to be passed on to the next node\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 510,
+        "y": 720,
+        "wires": [
+            [
+                "a91b134405455f42",
+                "32a1e623128c7d98"
+            ]
+        ]
+    },
+    {
+        "id": "f70eb3c9193ca60f",
+        "type": "inject",
+        "z": "865a3d0e33153e50",
+        "name": "Energy Overconsumption Test",
+        "props": [
+            {
+                "p": "payload.energy",
+                "v": "2900",
+                "vt": "num"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 240,
+        "y": 740,
+        "wires": [
+            [
+                "1a444d8f02992f43",
+                "32a1e623128c7d98"
+            ]
+        ]
+    },
+    {
+        "id": "32a1e623128c7d98",
+        "type": "debug",
+        "z": "865a3d0e33153e50",
+        "name": "debug 14",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 720,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "648460375491092a",
+        "type": "debug",
+        "z": "865a3d0e33153e50",
+        "name": "debug 15",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1000,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "8df1a30344b65a32",
+        "type": "function",
+        "z": "865a3d0e33153e50",
+        "name": "Energy Spike Detection",
+        "func": "// Define a threshold for what constitutes a spike – this could be a percentage or a fixed value\nconst threshold = 1.2; // for example, 20% over the average\nconst historyLength = 5; // number of past data points to consider for the running average\n\n// Retrieve the running average and history from context storage\nlet history = context.get('history') || [];\nlet runningAverage = context.get('runningAverage') || 0;\n\n// Log the initial state of context variables\nnode.warn(\"Initial history: \" + JSON.stringify(history));\nnode.warn(\"Initial running average: \" + runningAverage);\n\n// Get the current energy value from the incoming message\nconst currentEnergy = msg.payload.today_energy; // message payload must be the same as from the energy collection input function\n\n// Add the current value to the history array\nhistory.push(currentEnergy); // Storing the energy value directly as a number\n\n// Check if we have enough data to determine a spike\nif (history.length > historyLength) {\n    // Remove the oldest value if we exceed the history length\n    history.shift();\n}\n\n// Calculate the new running average after potential shift operation\nlet sum = history.reduce((sum, value) => sum + value, 0); // Summing numerical values directly\nrunningAverage = sum / history.length;\n\n// Store the updated values back into the context\ncontext.set('history', history);\ncontext.set('runningAverage', runningAverage);\n\n// Log the updated state of context variables\nnode.warn(\"Updated history: \" + JSON.stringify(history));\nnode.warn(\"Updated running average: \" + runningAverage);\n\n\n// Initialize spike detection as false\nlet spikeDetected = false;\n\n// Now, perform spike detection with the updated history\nif (currentEnergy > runningAverage * threshold) {\n    // Detected a spike\n    spikeDetected = true;\n}\n\n// Determine the message content based on spike detection\nif (spikeDetected) {\n    msg.payload = {\n        alert: \"true\",\n        message: currentEnergy,\n        source: \"first\" // Add a property to indicate the source\n    };\n \nreturn msg;\n} else {\n    msg.payload = {\n        alert: \"false\",\n    };\n}\n\n// Always return the message object so it can be passed to the next node\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 630,
+        "y": 180,
+        "wires": [
+            [
+                "65ed6fad40c211f8",
+                "2c39b727939a8bea"
+            ]
+        ]
+    },
+    {
+        "id": "65ed6fad40c211f8",
+        "type": "debug",
+        "z": "865a3d0e33153e50",
+        "name": "Spike Detection Debug",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 920,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "d762a25c923f3250",
+        "type": "inject",
+        "z": "865a3d0e33153e50",
+        "name": "Normal Consumption",
+        "props": [
+            {
+                "p": "payload.today_energy",
+                "v": "900",
+                "vt": "json"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 300,
+        "y": 120,
+        "wires": [
+            [
+                "8df1a30344b65a32"
+            ]
+        ]
+    },
+    {
+        "id": "556590456500718f",
+        "type": "inject",
+        "z": "865a3d0e33153e50",
+        "name": "Approaching Threshold",
+        "props": [
+            {
+                "p": "payload.today_energy",
+                "v": "1100",
+                "vt": "json"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 300,
+        "y": 180,
+        "wires": [
+            [
+                "8df1a30344b65a32"
+            ]
+        ]
+    },
+    {
+        "id": "e8e23716799ccae4",
+        "type": "inject",
+        "z": "865a3d0e33153e50",
+        "name": "Exceeding Threshold",
+        "props": [
+            {
+                "p": "payload.today_energy",
+                "v": "4000",
+                "vt": "json"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 300,
+        "y": 240,
+        "wires": [
+            [
+                "8df1a30344b65a32"
+            ]
+        ]
+    },
+    {
+        "id": "cb7610456e635d8e",
+        "type": "inject",
+        "z": "865a3d0e33153e50",
+        "name": "Filling history",
+        "props": [
+            {
+                "p": "payload.today_energy",
+                "v": "800",
+                "vt": "json"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 330,
+        "y": 60,
+        "wires": [
+            [
+                "8df1a30344b65a32"
+            ]
+        ]
+    },
+    {
+        "id": "c2fb03a5f9c62bb4",
+        "type": "telegram sender",
+        "z": "865a3d0e33153e50",
+        "name": "Spike Detection Message Sender",
+        "bot": "dc26e3f0a8566d25",
+        "haserroroutput": false,
+        "outputs": 1,
+        "x": 1780,
+        "y": 200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2c740a84c8e2cce2",
+        "type": "chatgpt",
+        "z": "865a3d0e33153e50",
+        "name": "Help With Energy Consumption",
+        "topic": "turbo",
+        "BaseUrl": "https://api.openai.com",
+        "x": 870,
+        "y": 1140,
+        "wires": [
+            [
+                "e13aa073fc4722a5",
+                "a9e50d3df3a0f352",
+                "723cdb44b6cb3f15"
+            ]
+        ]
+    },
+    {
+        "id": "7f7f8d911b8a7560",
+        "type": "join",
+        "z": "865a3d0e33153e50",
+        "name": "EnergyConsumptionMessage",
+        "mode": "custom",
+        "build": "string",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": false,
+        "timeout": "",
+        "count": "2",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 670,
+        "y": 1080,
+        "wires": [
+            [
+                "fefba5c5dca85ce1",
+                "2c740a84c8e2cce2"
+            ]
+        ]
+    },
+    {
+        "id": "fd1a56f0ba42df9e",
+        "type": "GSheet",
+        "z": "865a3d0e33153e50",
+        "creds": "6f6f8a314fcab26f",
+        "method": "get",
+        "action": "",
+        "sheet": "1qNJcK6MwHwlAldar82y7VS9cbZbV9tZ5UBseviee-v0",
+        "cells": "Sheet4!A1:B5",
+        "flatten": false,
+        "name": "Sheets_EnergyToday1",
+        "x": 380,
+        "y": 1080,
+        "wires": [
+            [
+                "7f7f8d911b8a7560"
+            ]
+        ]
+    },
+    {
+        "id": "e13aa073fc4722a5",
+        "type": "debug",
+        "z": "865a3d0e33153e50",
+        "name": "Debug AI Response",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1120,
+        "y": 1000,
+        "wires": []
+    },
+    {
+        "id": "fefba5c5dca85ce1",
+        "type": "debug",
+        "z": "865a3d0e33153e50",
+        "name": "Message Sent To AI Test",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 830,
+        "y": 1020,
+        "wires": []
+    },
+    {
+        "id": "24b7332697812556",
+        "type": "function",
+        "z": "865a3d0e33153e50",
+        "name": "LowerEnergyConsumption",
+        "func": "let msgText = msg.payload.content; // Make sure this aligns with how the Telegram node provides the message\nlet parts = msgText.split(' '); \n\n// Check if the incoming message contains all three specified keywords\nif (msgText.toLowerCase().includes(\"energy\") &&  \n    msgText.toLowerCase().includes(\"lower\") &&\n    (msgText.toLowerCase().includes(\"consumption\")||msgText.toLowerCase().includes(\"usage\"))) {\n    \n    // Format the message to be sent to ChatGPT\n      let formattedMessage = {\n        chatId: msg.payload.chatId, // Maintain original chatId if needed\n        type: 'message',\n        content: \"Hi you are now a friendly energy advisor. Your task is to help people better understand their total energy consumption, not just across appliances one might use but also the different forms of energy like food and transport.  When you are helping people be friendly but informative. I would like to know how to lower my energy consumption taking into account my personal usage from home. Please give 3 tips specific context to my situation. Try and be innovative and out of the box with your answers. Use no more then 150 words.\"\n        // You can add more information or customize the message as needed\n    };\n        // Convert the formatted message object to a string\n    let jsonString = JSON.stringify(formattedMessage);\n\n    // Set the stringified message as the payload\n    msg.payload = jsonString;\n\n    // Send the stringified message to the ChatGPT node\n    return msg;\n    // Send the message to the ChatGPT node\n    return msg;\n} else {\n    // If the message does not contain all three keywords, simply pass it along\n    return null;\n}\n",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 1180,
+        "wires": [
+            [
+                "b17205a035bd0550",
+                "7f7f8d911b8a7560",
+                "fd1a56f0ba42df9e"
+            ],
+            [
+                "3a2bc162db25938c"
+            ]
+        ]
+    },
+    {
+        "id": "b17205a035bd0550",
+        "type": "debug",
+        "z": "865a3d0e33153e50",
+        "name": "Message joining",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 660,
+        "y": 1220,
+        "wires": []
+    },
+    {
+        "id": "40553287bda3ccb5",
+        "type": "telegram receiver",
+        "z": "865a3d0e33153e50",
+        "name": "",
+        "bot": "dc26e3f0a8566d25",
+        "saveDataDir": "",
+        "filterCommands": false,
+        "x": 130,
+        "y": 1180,
+        "wires": [
+            [
+                "24b7332697812556",
+                "ae3e4fe1e12e2b30"
+            ],
+            [
+                "ae3e4fe1e12e2b30",
+                "24b7332697812556"
+            ]
+        ]
+    },
+    {
+        "id": "2d98f84f33eb8660",
+        "type": "telegram sender",
+        "z": "865a3d0e33153e50",
+        "name": "",
+        "bot": "dc26e3f0a8566d25",
+        "haserroroutput": false,
+        "outputs": 1,
+        "x": 1210,
+        "y": 1200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ae3e4fe1e12e2b30",
+        "type": "debug",
+        "z": "865a3d0e33153e50",
+        "name": "debug 17",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 140,
+        "y": 1280,
+        "wires": []
+    },
+    {
+        "id": "a9e50d3df3a0f352",
+        "type": "function",
+        "z": "865a3d0e33153e50",
+        "name": "EnergyCons Message",
+        "func": "\n// Set the received string from ChatGPT as the content\nmsg.payload = {\n    chatId: \"6596640884\", // Replace with your chat ID\n    type: 'message',\n    content: msg.payload\n};\n\n// Send the message to Telegram\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1000,
+        "y": 1240,
+        "wires": [
+            [
+                "77da09883bb4352e",
+                "2d98f84f33eb8660"
+            ]
+        ]
+    },
+    {
+        "id": "77da09883bb4352e",
+        "type": "debug",
+        "z": "865a3d0e33153e50",
+        "name": "debug 18",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1220,
+        "y": 1240,
+        "wires": []
+    },
+    {
+        "id": "45d02737cae30a49",
+        "type": "function",
+        "z": "865a3d0e33153e50",
+        "name": "Goodbye/Thanks",
+        "func": "let msgText = msg.payload.content; // Make sure this aligns with how the Telegram node provides the message\nlet parts = msgText.split(' '); \n\n// Check if the incoming message contains all three specified keywords\nif (msgText.toLowerCase().includes(\"thanks\") ||\n    msgText.toLowerCase().includes(\"thank\") || \n    msgText.toLowerCase().includes(\"bye\")) {\n    \n    // Set the message content\n    msg.payload = \"No problem, if you want anymore help feel free to reach out\";\n\n    // Send the message to the ChatGPT node\n    return msg;\n} else {\n    // If the message does not contain all three keywords, simply pass it along\n    return null;\n}\n",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 370,
+        "y": 1380,
+        "wires": [
+            [
+                "408ac2a5da1d6eae",
+                "db3b1a02af9bd13b"
+            ],
+            [
+                "db3b1a02af9bd13b"
+            ]
+        ]
+    },
+    {
+        "id": "13317fcddaf54efc",
+        "type": "telegram receiver",
+        "z": "865a3d0e33153e50",
+        "name": "",
+        "bot": "dc26e3f0a8566d25",
+        "saveDataDir": "",
+        "filterCommands": false,
+        "x": 110,
+        "y": 1380,
+        "wires": [
+            [
+                "45d02737cae30a49"
+            ],
+            [
+                "45d02737cae30a49"
+            ]
+        ]
+    },
+    {
+        "id": "2fc90702cfda9a58",
+        "type": "telegram sender",
+        "z": "865a3d0e33153e50",
+        "name": "",
+        "bot": "dc26e3f0a8566d25",
+        "haserroroutput": false,
+        "outputs": 1,
+        "x": 830,
+        "y": 1380,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "408ac2a5da1d6eae",
+        "type": "debug",
+        "z": "865a3d0e33153e50",
+        "name": "Check for Bye Message",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 590,
+        "y": 1420,
+        "wires": []
+    },
+    {
+        "id": "76232a41da82a39e",
+        "type": "comment",
+        "z": "865a3d0e33153e50",
+        "name": "",
+        "info": "Need here a way that it checks the data \nfrom the sheets? Maybe grab cell, which is\n an array. Then a function that takes this\n  array and checks for value. If found \n  then true, nothin else, if not found \n  then ask user via telegra, ",
+        "x": 820,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "db3b1a02af9bd13b",
+        "type": "function",
+        "z": "865a3d0e33153e50",
+        "name": "Formatting message",
+        "func": "\n// Set the received string from ChatGPT as the content\nmsg.payload = {\n    chatId: \"6596640884\", // Replace with your chat ID\n    type: 'message',\n    content: msg.payload\n};\n\n// Send the message to Telegram\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 620,
+        "y": 1380,
+        "wires": [
+            [
+                "2fc90702cfda9a58"
+            ]
+        ]
+    },
+    {
+        "id": "9bbc9153b118f1ed",
+        "type": "GSheet",
+        "z": "865a3d0e33153e50",
+        "creds": "6f6f8a314fcab26f",
+        "method": "get",
+        "action": "",
+        "sheet": "1qNJcK6MwHwlAldar82y7VS9cbZbV9tZ5UBseviee-v0",
+        "cells": "Sheet3!A2:A",
+        "flatten": false,
+        "name": "EnergySpikeSheet",
+        "x": 1010,
+        "y": 260,
+        "wires": [
+            [
+                "0a2ce2f3eded2665",
+                "11320f9a558a7928"
+            ]
+        ]
+    },
+    {
+        "id": "11320f9a558a7928",
+        "type": "function",
+        "z": "865a3d0e33153e50",
+        "name": "Check Spike Data",
+        "func": "let valueToCheck = context.get('valueToCheck') || undefined; // Retrieve valueToCheck from context\nlet sheetData = msg.payload; // Assuming sheetData is directly coming from the gsread node\n\n// Check if valueToCheck is undefined and if the payload from the split node is a number\nif (typeof msg.payload === 'number' && valueToCheck === undefined) {\n    // Assign valueToCheck from the payload of the split node\n    valueToCheck = msg.payload;\n    // Log the value to check for debugging\n    node.warn(\"Value to check: \" + valueToCheck);\n    // Store valueToCheck in context to retain it for subsequent runs\n    context.set('valueToCheck', valueToCheck);\n}\n\nlet found = false;\n// Iterate over the sheetData array to check for the value\nif (valueToCheck !== undefined && Array.isArray(sheetData)) {\n    for (let i = 0; i < sheetData.length; i++) {\n        node.warn(\"Comparing: \" + sheetData[i][0] + \" with \" + valueToCheck);\n        // Check if the value matches the current element of the sheetData array\n        if (parseInt(sheetData[i][0]) === valueToCheck) {\n            found = true;\n            break;\n        }\n    }\n}\n\n// If the value exists in the sheetData array, return false\nif (found) {\n    msg.payload = {\n        alert: \"false\"\n    };\n} else {\n    // If the value does not exist in the sheetData array, send alert true and a message to the user\n    msg.payload = {\n        chatId: \"6596640884\",\n        alert: \"true\",\n        type: \"message\",\n        content: \"Hey I've detected a spike in energy, that I don't know. What are you using currently?\"\n    };\n}\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1350,
+        "y": 240,
+        "wires": [
+            [
+                "eadbe44e109125b1",
+                "5be8f99f2396dc08"
+            ]
+        ]
+    },
+    {
+        "id": "eadbe44e109125b1",
+        "type": "debug",
+        "z": "865a3d0e33153e50",
+        "name": "debug 19",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1420,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "8e98fe25c5ab32bb",
+        "type": "function",
+        "z": "865a3d0e33153e50",
+        "name": "Energy Spike Detection Original",
+        "func": "// Define a threshold for what constitutes a spike – this could be a percentage or a fixed value\nconst threshold = 1.2; // for example, 20% over the average\nconst historyLength = 5; // number of past data points to consider for the running average\n\n// Retrieve the running average and history from context storage\nlet history = context.get('history') || [];\nlet runningAverage = context.get('runningAverage') || 0;\n\n// Log the initial state of context variables\nnode.warn(\"Initial history: \" + JSON.stringify(history));\nnode.warn(\"Initial running average: \" + runningAverage);\n\n// Get the current energy value from the incoming message\nconst currentEnergy = msg.payload.today_energy; // message payload must be the same as from the energy collection input function\n\n// Add the current value to the history array\nhistory.push(currentEnergy); // Storing the energy value directly as a number\n\n// Check if we have enough data to determine a spike\nif (history.length > historyLength) {\n    // Remove the oldest value if we exceed the history length\n    history.shift();\n}\n\n// Calculate the new running average after potential shift operation\nlet sum = history.reduce((sum, value) => sum + value, 0); // Summing numerical values directly\nrunningAverage = sum / history.length;\n\n// Store the updated values back into the context\ncontext.set('history', history);\ncontext.set('runningAverage', runningAverage);\n\n// Log the updated state of context variables\nnode.warn(\"Updated history: \" + JSON.stringify(history));\nnode.warn(\"Updated running average: \" + runningAverage);\n\n// Initialize spike detection as false\nmsg.spikeDetected = false;\n\n// Prepare msg.payload for Telegram\nmsg.payload = {\n    chatId: \"6596640884\", // Retrieve the user's chat ID stored in the context\n    type: 'message',\n};\n\n// Now, perform spike detection with the updated history\nif (currentEnergy > runningAverage * threshold) {\n    // Detected a spike\n    msg.spikeDetected = true;\n    msg.payload.content = `Spike detected: Current energy usage of ${currentEnergy} exceeds the average by more than ${(threshold - 1) * 100}%.`;\n} else {\n    msg.payload.content = \"No spike detected.\";\n}\n\n// Always return the message object so it can be passed to the next node\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 650,
+        "y": 40,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "73812eb90bb40740",
+        "type": "debug",
+        "z": "865a3d0e33153e50",
+        "name": "Switch Spike Detection",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1080,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "2c39b727939a8bea",
+        "type": "switch",
+        "z": "865a3d0e33153e50",
+        "name": "",
+        "property": "payload.alert",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "true",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "false",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 850,
+        "y": 180,
+        "wires": [
+            [
+                "73812eb90bb40740",
+                "9bbc9153b118f1ed",
+                "feeef3074bbc5494"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "0a2ce2f3eded2665",
+        "type": "debug",
+        "z": "865a3d0e33153e50",
+        "name": "debug 21",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1140,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "e72443f221c08d8b",
+        "type": "debug",
+        "z": "865a3d0e33153e50",
+        "name": "debug 22",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1220,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "feeef3074bbc5494",
+        "type": "split",
+        "z": "865a3d0e33153e50",
+        "name": "",
+        "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "payload.valuetocheck",
+        "x": 1030,
+        "y": 200,
+        "wires": [
+            [
+                "263d0397d7dd6abf"
+            ]
+        ]
+    },
+    {
+        "id": "263d0397d7dd6abf",
+        "type": "switch",
+        "z": "865a3d0e33153e50",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": true,
+        "outputs": 1,
+        "x": 1170,
+        "y": 220,
+        "wires": [
+            [
+                "e72443f221c08d8b",
+                "11320f9a558a7928"
+            ]
+        ]
+    },
+    {
+        "id": "5be8f99f2396dc08",
+        "type": "switch",
+        "z": "865a3d0e33153e50",
+        "name": "",
+        "property": "payload.alert",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "true",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "false",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1550,
+        "y": 220,
+        "wires": [
+            [
+                "c2fb03a5f9c62bb4"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "3a2bc162db25938c",
+        "type": "debug",
+        "z": "865a3d0e33153e50",
+        "name": "Message joining",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 620,
+        "y": 1280,
+        "wires": []
+    },
+    {
+        "id": "4de2483d795b87fa",
+        "type": "function",
+        "z": "865a3d0e33153e50",
+        "name": "Open Question",
+        "func": "let msgText = msg.payload.content; // Make sure this aligns with how the Telegram node provides the message\nlet parts = msgText.split(' '); \nlet additionalText = \"Hi, you are now a friendly energy advisor. Your task is to answer the following questions or messages.\";\n\n// Check if the incoming message contains all three specified keywords\nif (!(\n        (msgText.toLowerCase().includes(\"today\") && msgText.toLowerCase().includes(\"energy\") && msgText.toLowerCase().includes(\"consumption\")) ||\n        (msgText.toLowerCase().includes(\"today\") && msgText.toLowerCase().includes(\"energy\") && msgText.toLowerCase().includes(\"usage\")) ||\n        (msgText.toLowerCase().includes(\"lower\") && msgText.toLowerCase().includes(\"energy\") && msgText.toLowerCase().includes(\"consumption\")) ||\n        (msgText.toLowerCase().includes(\"lower\") && msgText.toLowerCase().includes(\"energy\") && msgText.toLowerCase().includes(\"usage\")) ||\n        msgText.toLowerCase().includes(\"thanks\") ||\n        msgText.toLowerCase().includes(\"thank\") ||\n        msgText.toLowerCase().includes(\"bye\")\n    )) {\n    \n    // Format the message to be sent to ChatGPT\n      let formattedMessage = {\n        chatId: msg.payload.chatId, // Maintain original chatId if needed\n        type: 'message',\n        content: additionalText + \"\\n\\n\" + msgText\n        // You can add more information or customize the message as needed\n    };\n        // Convert the formatted message object to a string\n    let jsonString = JSON.stringify(formattedMessage);\n\n    // Set the stringified message as the payload\n    msg.payload = jsonString;\n\n    // Send the stringified message to the ChatGPT node\n    return msg;\n    // Send the message to the ChatGPT node\n    return msg;\n} else {\n    // If the message does not contain all three keywords, simply pass it along\n    return null;\n}\n",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 1500,
+        "wires": [
+            [
+                "500f899436daf4fb",
+                "a395e551ae343aa2"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "2eb0b4d13975dd35",
+        "type": "telegram receiver",
+        "z": "865a3d0e33153e50",
+        "name": "",
+        "bot": "dc26e3f0a8566d25",
+        "saveDataDir": "",
+        "filterCommands": false,
+        "x": 110,
+        "y": 1500,
+        "wires": [
+            [
+                "4de2483d795b87fa"
+            ],
+            [
+                "4de2483d795b87fa"
+            ]
+        ]
+    },
+    {
+        "id": "500f899436daf4fb",
+        "type": "debug",
+        "z": "865a3d0e33153e50",
+        "name": "debug 23",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 560,
+        "y": 1560,
+        "wires": []
+    },
+    {
+        "id": "a395e551ae343aa2",
+        "type": "chatgpt",
+        "z": "865a3d0e33153e50",
+        "name": "OpenQuestionsAI",
+        "topic": "turbo",
+        "BaseUrl": "https://api.openai.com",
+        "x": 630,
+        "y": 1500,
+        "wires": [
+            [
+                "03476568164f1df5"
+            ]
+        ]
+    },
+    {
+        "id": "03476568164f1df5",
+        "type": "function",
+        "z": "865a3d0e33153e50",
+        "name": "function 4",
+        "func": "\n// Set the received string from ChatGPT as the content\nmsg.payload = {\n    chatId: \"6596640884\", // Replace with your chat ID\n    type: 'message',\n    content: msg.payload\n};\n\n// Send the message to Telegram\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 820,
+        "y": 1500,
+        "wires": [
+            [
+                "79d1b7faa7d8b1ff"
+            ]
+        ]
+    },
+    {
+        "id": "79d1b7faa7d8b1ff",
+        "type": "telegram sender",
+        "z": "865a3d0e33153e50",
+        "name": "",
+        "bot": "dc26e3f0a8566d25",
+        "haserroroutput": false,
+        "outputs": 1,
+        "x": 1030,
+        "y": 1500,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "611b25677d9f408b",
+        "type": "function",
+        "z": "865a3d0e33153e50",
+        "name": "Todays Energy Usage",
+        "func": "let msgText = msg.payload.content; // Make sure this aligns with how the Telegram node provides the message\nlet parts = msgText.split(' '); \n\n// Check if the incoming message contains all three specified keywords\nif (msgText.toLowerCase().includes(\"today\") && \n    msgText.toLowerCase().includes(\"energy\") && \n    (msgText.toLowerCase().includes(\"consumption\")||msgText.toLowerCase().includes(\"consumption\"))) {\n\n    msg.payload = {\n        alert: \"true\",\n    };\n \nreturn msg;\n} else {\n    msg.payload = {\n        alert: \"false\",\n    };\n}\n\n// Always return the message object so it can be passed to the next node\nreturn msg;\n",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 1660,
+        "wires": [
+            [
+                "aa5ee6c1030c1b55"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "89d4092c1d74b046",
+        "type": "telegram receiver",
+        "z": "865a3d0e33153e50",
+        "name": "",
+        "bot": "dc26e3f0a8566d25",
+        "saveDataDir": "",
+        "filterCommands": false,
+        "x": 110,
+        "y": 1660,
+        "wires": [
+            [
+                "611b25677d9f408b"
+            ],
+            [
+                "611b25677d9f408b"
+            ]
+        ]
+    },
+    {
+        "id": "aa5ee6c1030c1b55",
+        "type": "switch",
+        "z": "865a3d0e33153e50",
+        "name": "",
+        "property": "payload.alert",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "true",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "false",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 530,
+        "y": 1660,
+        "wires": [
+            [
+                "c486aab4eda18c0f"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "c486aab4eda18c0f",
+        "type": "GSheet",
+        "z": "865a3d0e33153e50",
+        "creds": "6f6f8a314fcab26f",
+        "method": "get",
+        "action": "",
+        "sheet": "1qNJcK6MwHwlAldar82y7VS9cbZbV9tZ5UBseviee-v0",
+        "cells": "Sheet1!A1:A",
+        "flatten": false,
+        "name": "Sheets_EnergyToday1",
+        "x": 700,
+        "y": 1700,
+        "wires": [
+            [
+                "70793cda8af101c8"
+            ]
+        ]
+    },
+    {
+        "id": "70793cda8af101c8",
+        "type": "function",
+        "z": "865a3d0e33153e50",
+        "name": "Message for Telegram",
+        "func": "// Function to retrieve the last value from the nested array\nfunction getLastValueFromNestedArray(arr) {\n    if (arr && Array.isArray(arr) && arr.length > 0) {\n        let lastArray = arr[arr.length - 1]; // Get the last array in the outer array\n        if (Array.isArray(lastArray) && lastArray.length > 0) {\n            return lastArray[lastArray.length - 1]; // Return the last element of the last array\n        } else {\n            return null; // Return null if the last array is empty or undefined\n        }\n    } else {\n        return null; // Return null if the outer array is empty or undefined\n    }\n}\n\n// Retrieve the payload from the message\nlet sheetData = msg.payload;\n\n// Call the function to get the last value from the nested array\nlet lastValue = getLastValueFromNestedArray(sheetData);\n\n// Construct the consumption message\nlet consumptionMessage = `Your current consumption from today is ${lastValue} watts.`;\n\nmsg.payload = {\n    chatId: \"6596640884\", // Replace with your chat ID\n    type: 'message',\n    content: consumptionMessage\n};\n\n\n// Return the message\nreturn msg;\n",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 960,
+        "y": 1660,
+        "wires": [
+            [
+                "22608c70267c2281",
+                "e0da73794282792b"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "22608c70267c2281",
+        "type": "debug",
+        "z": "865a3d0e33153e50",
+        "name": "debug 24",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1080,
+        "y": 1780,
+        "wires": []
+    },
+    {
+        "id": "e0da73794282792b",
+        "type": "telegram sender",
+        "z": "865a3d0e33153e50",
+        "name": "",
+        "bot": "dc26e3f0a8566d25",
+        "haserroroutput": false,
+        "outputs": 1,
+        "x": 1230,
+        "y": 1660,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "85847f260bde8647",
+        "type": "debug",
+        "z": "865a3d0e33153e50",
+        "name": "debug 25",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1800,
+        "y": 1000,
+        "wires": []
+    },
+    {
+        "id": "723cdb44b6cb3f15",
+        "type": "function",
+        "z": "865a3d0e33153e50",
+        "name": "function 5",
+        "func": "let msgText = msg.payload; // Make sure this aligns with how the Telegram node provides the message\nlet sentence = \"Craft a concise message, no longer than 900 characters, directing an image generator to design an inspiring sticker based on the provided energy-saving tips. The sticker should be simple yet attention-grabbing, serving as a motivator for eco-friendly actions.\"\n\n// Format the message to be sent to ChatGPT\n    let formattedMessage = {\n    chatId: \"6596640884\", // Replace with your chat ID\n    type: 'message',\n    content: `${sentence} ${msgText}`\n};\n        // Convert the formatted message object to a string\nlet jsonString = JSON.stringify(formattedMessage);\n\n// Set the stringified message as the payload\nmsg.payload = jsonString;\n\n// Send the stringified message to the ChatGPT node\nreturn msg;\n    // Send the message to the ChatGPT node\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1120,
+        "y": 1140,
+        "wires": [
+            [
+                "927a166f471b0f3a",
+                "11fc797e1515775f"
+            ]
+        ]
+    },
+    {
+        "id": "ebb8d70e0a8d80ce",
+        "type": "inject",
+        "z": "865a3d0e33153e50",
+        "name": "",
+        "props": [
+            {
+                "p": "payload.content",
+                "v": "Lower energy usage",
+                "vt": "str"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 110,
+        "y": 1120,
+        "wires": [
+            [
+                "24b7332697812556"
+            ]
+        ]
+    },
+    {
+        "id": "927a166f471b0f3a",
+        "type": "debug",
+        "z": "865a3d0e33153e50",
+        "name": "debug 26",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1200,
+        "y": 1040,
+        "wires": []
+    },
+    {
+        "id": "648eb847523e066b",
+        "type": "image viewer",
+        "z": "865a3d0e33153e50",
+        "name": "",
+        "width": 160,
+        "data": "payload",
+        "dataType": "msg",
+        "active": true,
+        "x": 1990,
+        "y": 1200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "090131d261f00437",
+        "type": "jimp-image",
+        "z": "865a3d0e33153e50",
+        "name": "64Bits-Image",
+        "data": "payload",
+        "dataType": "msg",
+        "ret": "img",
+        "parameter1": "",
+        "parameter1Type": "msg",
+        "parameter2": "",
+        "parameter2Type": "msg",
+        "parameter3": "",
+        "parameter3Type": "msg",
+        "parameter4": "",
+        "parameter4Type": "msg",
+        "parameter5": "",
+        "parameter5Type": "msg",
+        "parameter6": "",
+        "parameter6Type": "msg",
+        "parameter7": "",
+        "parameter7Type": "msg",
+        "parameter8": "",
+        "parameter8Type": "msg",
+        "sendProperty": "payload",
+        "sendPropertyType": "msg",
+        "parameterCount": 0,
+        "jimpFunction": "none",
+        "selectedJimpFunction": {
+            "name": "none",
+            "fn": "none",
+            "description": "Just loads the image.",
+            "parameters": []
+        },
+        "x": 1830,
+        "y": 1200,
+        "wires": [
+            [
+                "648eb847523e066b"
+            ]
+        ]
+    },
+    {
+        "id": "11fc797e1515775f",
+        "type": "chatgpt",
+        "z": "865a3d0e33153e50",
+        "name": "Help With Energy Consumption",
+        "topic": "turbo",
+        "BaseUrl": "https://api.openai.com",
+        "x": 1330,
+        "y": 1140,
+        "wires": [
+            [
+                "ab4b6c896a199bea",
+                "b393fc8cd4419c60"
+            ]
+        ]
+    },
+    {
+        "id": "ab4b6c896a199bea",
+        "type": "debug",
+        "z": "865a3d0e33153e50",
+        "name": "debug 27",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1620,
+        "y": 1200,
+        "wires": []
+    },
+    {
+        "id": "cbc992f418c52083",
+        "type": "inject",
+        "z": "865a3d0e33153e50",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Create an energizing image showcasing eco-friendly tips: 1. French press or cold brew coffee  2. Use slow cooker or microwave for cooking 3. Shorter showers and lower boiler temperature  Vibrant colors, motivational design. Capture attention for sustainable actions! ",
+        "payloadType": "str",
+        "x": 1450,
+        "y": 1040,
+        "wires": [
+            [
+                "b393fc8cd4419c60"
+            ]
+        ]
+    },
+    {
+        "id": "9f13b2b92db966df",
+        "type": "telegram sender",
+        "z": "865a3d0e33153e50",
+        "name": "",
+        "bot": "dc26e3f0a8566d25",
+        "haserroroutput": false,
+        "outputs": 1,
+        "x": 2090,
+        "y": 1020,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b393fc8cd4419c60",
+        "type": "simple-dalle3",
+        "z": "865a3d0e33153e50",
+        "name": "",
+        "Token": "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",
+        "output": "url",
+        "x": 1650,
+        "y": 1040,
+        "wires": [
+            [
+                "85847f260bde8647",
+                "090131d261f00437",
+                "664969ecb1d844a7"
+            ]
+        ]
+    },
+    {
+        "id": "664969ecb1d844a7",
+        "type": "function",
+        "z": "865a3d0e33153e50",
+        "name": "Image generator",
+        "func": "\n// Set the received string from ChatGPT as the content\nmsg.payload = {\n    chatId: \"6596640884\", // Replace with your chat ID\n    type: 'message',\n    content: msg.payload\n};\n\n// Send the message to Telegram\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1920,
+        "y": 1100,
+        "wires": [
+            [
+                "9f13b2b92db966df",
+                "7403de424bd2e953"
+            ]
+        ]
+    },
+    {
+        "id": "7403de424bd2e953",
+        "type": "debug",
+        "z": "865a3d0e33153e50",
+        "name": "debug 28",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2080,
+        "y": 1140,
+        "wires": []
+    },
+    {
+        "id": "6f6f8a314fcab26f",
+        "type": "gauth",
+        "name": "nodered-gs-read@energytracking-416309.iam.gserviceaccount.com"
+    },
+    {
+        "id": "dc26e3f0a8566d25",
+        "type": "telegram bot",
+        "botname": "EnergyDan_bot",
+        "usernames": "",
+        "chatids": "-4137212798",
+        "baseapiurl": "",
+        "updatemode": "polling",
+        "pollinterval": "300",
+        "usesocks": false,
+        "sockshost": "",
+        "socksprotocol": "socks5",
+        "socksport": "6667",
+        "socksusername": "anonymous",
+        "sockspassword": "",
+        "bothost": "",
+        "botpath": "",
+        "localbotport": "8443",
+        "publicbotport": "8443",
+        "privatekey": "",
+        "certificate": "",
+        "useselfsignedcertificate": false,
+        "sslterminated": false,
+        "verboselogging": false
+    }
+]

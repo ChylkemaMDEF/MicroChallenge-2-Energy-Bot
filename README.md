@@ -33,16 +33,13 @@ _The process we went through to create Dan_
 
 The process that we went through during the first microchallenge opened our eyes to the possibilities of NodeRed but also taught us a lot. For that reason we started this project slightly different. Instead of starting and trying to connect all nodes at once, we focussed on going through step by step through each input and output we wanted and working to create that functioning flow. We did this in tandem and worked together to go through every part of the flow chart mentioned above. In the end once every part was working by itself we started connecting them together. The flow itself for nodered ahs been added in the files, however there are still some limitations in the way that the telegram messages need to be set to your own chat_id and they are currently all linked to one bot instead of everyone having their own. While everyone can talk to dan it would essentially mean we would need the infrastructure to grow with each additional user, as it would require a new flow for new users as they need their own unique flow. As of now we do not have the storage capacity needed to run this at the moment. Next to this the messages still flow in such a way that it works on key words which means there are still a few limitations in what Dan can understand and respond to.  
 
-
 ### Building the Physical Device
 ![1](https://github.com/ChylkemaMDEF/MicroChallenge-2-Energy-Bot/assets/147051108/e078db04-d3c4-4c41-aa4d-105ae6893b0a)
-
-### Building the Physical Device
 The energy monitor system itself is based on the work and designs from the [Open Energy Monitor initiative](https://docs.openenergymonitor.org/index.html), the [OkDo Energy Monitor](https://www.okdo.com/project/smart-energy-meter-with-arduino-nano-every/)and the [Luzmon Energy Monitor by Adrien Laveuz](https://miro.com/app/board/uXjVN0VbEd4=/?moveToWidget=3458764580339700228&cot=14). 
 
 It's made up of a simple circuit paired with an Arduino microcontroller. 
 
-### How does it work?
+_How does it work?_
 THe circuit uses a non invasive current transformer (CT) which are a special type of transformer in which the primary coil is the mains power cable in your building wiring, and the secondary coil is connected in series with a low-value resistor called a Burden resistor. The small current flowing in the burden resistor generates a voltage across it which can be measured and used to calculate the current flowing in the primary circuit. 
 
 The CT we are using is rated at 100A, so it’s suitable for measuring the total power in a domestic home. It has 2000 turns : 1, so at its maximum primary current rating of 100A, it induces a 50mA secondary current:

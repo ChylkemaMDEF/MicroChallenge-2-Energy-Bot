@@ -9,7 +9,9 @@ The defined intelligence is: **An energy consumption chatbot powered by chatgpt 
 
 The defined artifact is: **A low-tech energy monitor in combination with a AI generated sticker**
 
-# Creating the chatbot in NodeRed
+# The Process
+
+### Creating the chatbot in NodeRed
 
 Before this week we had talked quite a bit about the idea of our chatbot and which different inputs and outputs it would require. Next to this there were also a lot of different components that we needed to decide would be done algorithmicly and which would require some form of AI. To help us get a better understanding of which flows existed in our desired system we created the following flowchart.
 ![Energy Relationships - Frame 4](https://github.com/ChylkemaMDEF/MicroChallenge-2-Energy-Bot/assets/147051108/6891d68a-fe35-4787-ba5f-962272d0618c)
@@ -30,7 +32,7 @@ _The process we went through to create Dan_
 The process that we went through during the first microchallenge opened our eyes to the possibilities of NodeRed but also taught us a lot. For that reason we started this project slightly different. Instead of starting and trying to connect all nodes at once, we focussed on going through step by step through each input and output we wanted and working to create that functioning flow. We did this in tandem and worked together to go through every part of the flow chart mentioned above. In the end once every part was working by itself we started connecting them together. The flow itself for nodered ahs been added in the files, however there are still some limitations in the way that the telegram messages need to be set to your own chat_id and they are currently all linked to one bot instead of everyone having their own. While everyone can talk to dan it would essentially mean we would need the infrastructure to grow with each additional user, as it would require a new flow for new users as they need their own unique flow. As of now we do not have the storage capacity needed to run this at the moment. Next to this the messages still flow in such a way that it works on key words which means there are still a few limitations in what Dan can understand and respond to.  
 
 
-# Building the Physical Device
+### Building the Physical Device
 
 
 # The Outcomes

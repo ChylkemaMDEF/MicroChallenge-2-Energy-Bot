@@ -37,6 +37,40 @@ The process that we went through during the first microchallenge opened our eyes
 ### Building the Physical Device
 ![1](https://github.com/ChylkemaMDEF/MicroChallenge-2-Energy-Bot/assets/147051108/e078db04-d3c4-4c41-aa4d-105ae6893b0a)
 
+### Building the Physical Device
+The energy monitor system itself is based on the work and designs from the [Open Energy Monitor initiative](https://docs.openenergymonitor.org/index.html), the [OkDo Energy Monitor](https://www.okdo.com/project/smart-energy-meter-with-arduino-nano-every/)and the [Luzmon Energy Monitor by Adrien Laveuz](https://miro.com/app/board/uXjVN0VbEd4=/?moveToWidget=3458764580339700228&cot=14). 
+
+It's made up of a simple circuit paired with an Arduino microcontroller. 
+
+### How does it work?
+THe circuit uses a non invasive current transformer (CT) which are a special type of transformer in which the primary coil is the mains power cable in your building wiring, and the secondary coil is connected in series with a low-value resistor called a Burden resistor. The small current flowing in the burden resistor generates a voltage across it which can be measured and used to calculate the current flowing in the primary circuit. 
+
+The CT we are using is rated at 100A, so it’s suitable for measuring the total power in a domestic home. It has 2000 turns : 1, so at its maximum primary current rating of 100A, it induces a 50mA secondary current:
+100A / 2000 = 50mA
+
+*The original cirucit we based ours on used an arduino Nano Every, but seeing as ours broke we switched to an arduino UNO*
+
+To adapt the circuit for the Arduino UNO instead of the Arduino Nano Every, we needed to account for the fact that both boards use a 10-bit ADC, but they are based on different microcontrollers. The Arduino UNO is based on the ATmega328P microcontroller, not the ATMega4809. However, the ADC resolution calculation remains the same because both use a 10-bit ADC.
+
+Here's the revised text:
+
+The Arduino UNO is based on the ATmega328P microcontroller, which also has a 10-bit (0 – 1023) Analogue to Digital Converter (ADC) for measuring voltages between 0V and 5V. This gives a resolution of 4.9mV per division, which is quite sensitive:
+
+5000mV / 1024 ≈ 4.88mV
+
+Like with the Nano Every, the ADC of the Arduino UNO can only measure voltages between 0V and 5V (it can be damaged if you exceed these limits), but the mains AC current alternates above and below zero, so the current in the burden resistor will do so in proportion.
+
+If the signal is offset by a DC voltage at 2.5V (called DC biasing) the burden resistor can be sized such that the peak to peak (P2P) voltage is just below 5V, to get the highest resolution and stay within the ADC tolerances.
+
+Now, let's calculate the burden resistor for a 100A @ 50mA CT for the Arduino UNO:
+
+Primary P2P current = 100A rms x √2 = 100 x 1.414 ≈ 141.4A
+
+Secondary P2P current = Primary P2P current / Turns = 141.4A / 2000 ≈ 70.7mA
+
+Burden resistance = 2.5V / Secondary P2P current = 2.5V / 70.7mA = 35.4Ω
+
+33Ω is the closest standard resistor size below 35.4Ω, providing a margin of safety for the ADC and is sufficiently low to prevent the CT from saturating.
 
 # The Outcomes
 ### Dan Working and Generating Images

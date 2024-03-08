@@ -45,7 +45,7 @@ THe circuit uses a non invasive current transformer (CT) which are a special typ
 The CT we are using is rated at 100A, so it’s suitable for measuring the total power in a domestic home. It has 2000 turns : 1, so at its maximum primary current rating of 100A, it induces a 50mA secondary current:
 100A / 2000 = 50mA
 
-*The original cirucit we based ours on used an arduino Nano Every, but seeing as ours broke we switched to an arduino UNO*
+*The original circuit we based ours on used an arduino Nano Every, but seeing as ours broke we switched to an arduino UNO*
 
 To adapt the circuit for the Arduino UNO instead of the Arduino Nano Every, we needed to account for the fact that both boards use a 10-bit ADC, but they are based on different microcontrollers. The Arduino UNO is based on the ATmega328P microcontroller, not the ATMega4809. However, the ADC resolution calculation remains the same because both use a 10-bit ADC.
 

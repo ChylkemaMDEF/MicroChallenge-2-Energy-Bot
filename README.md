@@ -188,3 +188,17 @@ At the moment we have a functioning energy monitor that we have built with easy 
 
 
 # Reflecting and Moving Forward
+
+This microchallenge has been a lot of fun, we've made significant progress in our research into measuring and understanding energy consumption, as well as how we can combine this information with big data technologies like AI in a collaborative and conversational way. 
+
+We made even more progress in understanding our skills in coding and basic programming using tools like Node-Red, coding with Javascript and Arduino as well as understanding how to adapt existing state of the art technologies through different API calls.
+
+It was nice this time around do a bit of hardware development, even if it was just a basic circuit to understand the real world aspects of our research, which was a welcome change to just working on software as we did in the previous microchallenge.
+
+We can definitely feel ourselves adapting as designers, turning into hybrid designers from pure product designers we were before, this an exciting area for both of us as we've been able to explore a range of interests we've had that that we might otherwise not have been able to engage with as much in the past.
+
+Moving forward we'd like to continue working on this energy monitor prototype, developing the circuit further to use a different microcontroller with an integrated ESP332 moudule, which would allow us to consolidate hardware into a mich smaller package, as well as publish the recieved energy information to our Node-Red Dashboard and our friendly energybot Dan. 
+
+Building on this we'd like to create a custom PCB that integrates all the individual components we've used onto one board, and do a bit of old fanished product design to create an appealing and usable casing that would faciliate an intuitive user experience and actually look like a consumer facing product.
+
+We plan to develop a few prototypes that we could send to some volunteer Alpha testers, where we could then engage with our community through user led design feedback to better improve both Dan the energy bot and our energy monitor, to be able to investigate further our research idea of reducing consumption without lowering quality of life.

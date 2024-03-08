@@ -69,6 +69,106 @@ Burden resistance = 2.5V / Secondary P2P current = 2.5V / 70.7mA = 35.4Ω
 
 33Ω is the closest standard resistor size below 35.4Ω, providing a margin of safety for the ADC and is sufficiently low to prevent the CT from saturating.
 
+
+## The Circuit
+
+### Circuit Bill of Materials
+
+You will need the following: 
+    1x Arduino UNO Board - The central microcontroller board for the project.
+    2x 10k Ohm Resistors (R1 & R2) - Two resistors forming a voltage divider to create a 2.5V DC offset.
+    1x 33 Ohm Resistor (R3) - The burden resistor connected across the CT terminals.
+    1x 1k Ohm Resistor (R4) - A current-limiting resistor to protect the ADC pin.
+    1x 1uF Capacitor - Provides a low impedance bypass to the ground.
+    1x Current Transformer (CT) - The primary sensor for the project, with a built-in diode for protection and safety.
+    1x Standard Microphone Jack - Used to connect the CT to the Arduino's analog input A1.
+    1x Adafruit 1.14" 240x135 Color TFT Breakout LCD Display - This will be used to display the measurements or output from the Arduino UNO.
+    Jumper Wires/Connectors - To make all the necessary connections on the breadboard or PCB.
+    1x Breadboard - To build out the prototype circuit.
+
+### How the circuit works
+
+The circuit itself is actually quite simple. The two 10k Ohm resistors, R1 & R2, form a voltage divider, this halves the 5V supply voltage provided by the Arduino’s 5V pin to 2.5V. This creates the DC offset for the Current Transformer, which is connected between the centre of the voltage divider and the analogue input A1 using a standard microphone jack.
+
+The 33 Ohm Burden resistor R3 is connected across the CT terminals, and a 1uF capacitor provides a low impedance by-pass to the ground. The 1k Ohm current limiting resistor R4 protects the ADC pin.
+
+All the other connections are for the e-Paper display, which is detailed next.
+
+Warning: Never install the CT with the power on. Always make sure the burden resistor is connected before turning on the power. The CT recommended for this project has a diode for protection and safety built into the device.
+
+![Circuit diagram layout](https://github.com/ChylkemaMDEF/MicroChallenge-2-Energy-Bot/assets/147057296/18aa0ee7-1e1b-4534-b882-4419352a31e5)
+
+### The Code you'll need
+The code we used for this project was adapted from [OkDo's Github Repository](https://github.com/LetsOKdo/arduino-power-meter/tree/main/epd2in9-demo) and modified to adapt to the adafruit mini oled screen we've used. you can download it from this Github repository in the code file section!
+
+The way this code works is that it measures the voltage across the burden resistor by rapidly sampling the ADC to digitise the AC signal by filtering out the DC offset and calculating the RMS current in the secondary coil. This is then scaled to the RMS current in the primary coil.
+
+A fixed value is used for the primary RMS voltage so the Real Power can be calculated along with the cost per kWh. This is a simplified approach but is easier to understand and code, but it works really well. We got well within 2% of our electricity company’s smart meter readings.
+
+Important values are configured at the top of the listing; some of them can be adjusted to obtain more accurate readings. Details of calibrating these are in the next section.
+
+The current ratio is set according to the number of turns in the CT’s secondary coil divided by the value of the burden resistor:
+
+        const float current_ratio =  2000.0 / 33.0;
+
+**Note: In C/C++, it is important to include decimal places for floating point numbers to indicate to the compiler; otherwise, you can get integer arithmetic which will give very different results!**
+
+This is the DC bias set by the resistor divider circuit – both resistors should be about the same value, so it should be set to 512.
+
+        int16_t adc_bias = 512;
+
+The next macro sets the value for the Arduino supply voltage – this is used in converting the ADC reading, which is an integer into a voltage – nominally, it is 5V but can be adjusted.
+
+        #define ARDUINO_V 4.8
+
+Your electricity cost per kWh is set in this macro – ours is in pence, and it is multiplied by the power figure to obtain the cost shown on the display:
+
+        #define COST_PER_KWHR 28.5
+
+The final value of importance is the mains RMS voltage – this varies depending on your location – ours is about 240V:
+
+        #define MAINS_V_RMS  240.0
+
+The low pass filter function removes the DC bias from the AC signal. We put it in its own file so we could test it – lowpass.h & lowpass.cpp
+
+It takes two parameters, a pointer to the bias variable and the ADC reading, which will be a value between 0 and 1023. The return value is an integer with the DC offset removed or filtered out. It will be positive if the raw reading is above 512, and negative if it is below. It needs to be very fast so that it can be called multiple times to sample the signal quickly enough.
+
+Note: The data types and use of integer division are necessary to ensure the correct return.
+        
+        int16_t intLowPass(int16_t* bias, int16_t raw) {
+          *bias = (*bias + ((raw - *bias) / 1024)); // int division!
+          return raw - *bias;
+        }
+
+The next section in main() is where the ADC is sampled. Each reading from the filtered output is squared to remove any negative values and accumulated in a 32-bit wide variable which is large enough to hold all the samples.
+
+         int32_t adc_sum_sqr = 0;
+          for (int n = 0; n < NUM_OF_SAMPLES; n++)
+          {
+            int16_t adc_raw = analogRead(ADC_PIN);
+            int16_t adc_filtered = intLowPass(&adc_bias, adc_raw);
+            adc_sum_sqr += adc_filtered * adc_filtered;
+          }
+
+If you take the square root of the average reading and scale it by the Arduino supply voltage, you get the RMS voltage across the burden resistor. This is proportional to the primary current.
+
+         double vrms = sqrt(adc_sum_sqr / NUM_OF_SAMPLES) * ARDUINO_V / 1024.0;
+
+Multiply the burden voltage by the current ratio to get the primary RMS current:
+
+         double Irms = vrms * current_ratio;
+
+Multiply primary RMS current by the primary RMS voltage, and we have the power in Watts:
+
+         double active_power = Irms * MAINS_V_RMS;
+
+From this, the cost per kWh can be calculated and rounded for the display:
+
+         double rnd_cost = round(active_power * COST_PER_KWHR / 1000.0);
+
+All the rest of the code deals with managing and displaying the results on the EPD. Values need to be converted to strings for display purposes using the val_to_str() function.
+
+
 # The Outcomes
 ### Dan Working and Generating Images
 

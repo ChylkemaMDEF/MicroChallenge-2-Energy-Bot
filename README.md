@@ -13,7 +13,7 @@ The defined artifact is: **A low-tech energy monitor in combination with a AI ge
 
 https://github.com/ChylkemaMDEF/MicroChallenge-2-Energy-Bot/assets/147051108/a3cf86ed-9f80-4254-b6f6-062837d0c48b
 
-### Creating the chatbot in NodeRed
+## Creating the chatbot in NodeRed
 
 Before this week we had talked quite a bit about the idea of our chatbot and which different inputs and outputs it would require. Next to this there were also a lot of different components that we needed to decide would be done algorithmicly and which would require some form of AI. To help us get a better understanding of which flows existed in our desired system we created the following flowchart.
 ![Energy Relationships - Frame 4](https://github.com/ChylkemaMDEF/MicroChallenge-2-Energy-Bot/assets/147051108/6891d68a-fe35-4787-ba5f-962272d0618c)
@@ -21,7 +21,7 @@ Before this week we had talked quite a bit about the idea of our chatbot and whi
 To then transform the idea in our head to an actual working system we took some time to understand what each component might entail and next to this also go back and forth using chatgpt about what potential functions could be used using NodeRed and also through looking at the NodeRed flows we were able to better understand what already exists. Things like using a form of AI like Chatgpt to process information and send data back to storing our data in GoogleSheets were already nodes that existed and could work to make our jobs slightly easier in the end. 
 ![Energy Relationships - Node-Red Flow Build](https://github.com/ChylkemaMDEF/MicroChallenge-2-Energy-Bot/assets/147051108/4eadfb89-f101-46ba-8cb9-60296ec0b6a4)
 
-_The Bill of Material Energy Bot_
+### The Bill of Material Energy Bot
 * NodeRed
 * Google Sheets + Sheets API
 * Google Cloud Project
@@ -32,6 +32,8 @@ _The Bill of Material Energy Bot_
 _The process we went through to create Dan_
 
 The process that we went through during the first microchallenge opened our eyes to the possibilities of NodeRed but also taught us a lot. For that reason we started this project slightly different. Instead of starting and trying to connect all nodes at once, we focussed on going through step by step through each input and output we wanted and working to create that functioning flow. We did this in tandem and worked together to go through every part of the flow chart mentioned above. In the end once every part was working by itself we started connecting them together. The flow itself for nodered ahs been added in the files, however there are still some limitations in the way that the telegram messages need to be set to your own chat_id and they are currently all linked to one bot instead of everyone having their own. While everyone can talk to dan it would essentially mean we would need the infrastructure to grow with each additional user, as it would require a new flow for new users as they need their own unique flow. As of now we do not have the storage capacity needed to run this at the moment. Next to this the messages still flow in such a way that it works on key words which means there are still a few limitations in what Dan can understand and respond to.  
+
+https://github.com/ChylkemaMDEF/MicroChallenge-2-Energy-Bot/assets/147051108/8ffb0e59-4fab-4c03-a1a0-11ed83f2c7f5
 
 ## Building the Physical Device
 
@@ -172,10 +174,17 @@ All the rest of the code deals with managing and displaying the results on the E
 
 
 # The Outcomes
-### Dan Working and Generating Images
+## Dan Working and Generating Images
+The way Dan works currently is that he takes a variety of inputs coming in through telegram and holds a conversation with the user. Next to this he is also constantly taking input from the plug and logging this into a google sheets. This database allows for him to get a better understanding of the users past behavior and give specific tips based on the persons personal usage. There are still a few bugs but that is for us to work out in the future. Below a video is shown in which you can see the interaction that one has with Dan.
+(https://github.com/ChylkemaMDEF/MicroChallenge-2-Energy-Bot/assets/147051108/5b2fbfd3-4215-4f62-ab30-6465decb572b)
+![image](https://github.com/ChylkemaMDEF/MicroChallenge-2-Energy-Bot/assets/147051108/01cc86fe-8fb3-43b0-9caf-b33bc7ba81a6)
 
+[<img src="(https://github.com/ChylkemaMDEF/MicroChallenge-2-Energy-Bot/assets/147051108/01cc86fe-8fb3-43b0-9caf-b33bc7ba81a6" width="300" height="600"
+/>](https://www.youtube.com/embed/APOPm01BVrk)
 _Outputted Stickers_
 
-### The Current state of Energy Measurer
+## The Current state of Energy Measurer
+![Ontwerp zonder titel](https://github.com/ChylkemaMDEF/MicroChallenge-2-Energy-Bot/assets/147051108/eb4e8ff9-9d79-4751-a431-341cff0a1fed)
+
 
 # Reflecting and Moving Forward

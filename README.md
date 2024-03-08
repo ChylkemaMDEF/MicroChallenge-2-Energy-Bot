@@ -10,6 +10,7 @@ The defined intelligence is: **An energy consumption chatbot powered by chatgpt 
 The defined artifact is: **A low-tech energy monitor in combination with a AI generated sticker**
 
 # The Process
+<iframe width="560" height="315" src="https://www.youtube.com/embed/bTpjpz2uDnk?si=7aXqZi74BQwWT76E" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ### Creating the chatbot in NodeRed
 
@@ -33,6 +34,7 @@ The process that we went through during the first microchallenge opened our eyes
 
 
 ### Building the Physical Device
+![1](https://github.com/ChylkemaMDEF/MicroChallenge-2-Energy-Bot/assets/147051108/e078db04-d3c4-4c41-aa4d-105ae6893b0a)
 
 
 # The Outcomes

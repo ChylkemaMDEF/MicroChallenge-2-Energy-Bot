@@ -15,7 +15,10 @@ https://github.com/ChylkemaMDEF/MicroChallenge-2-Energy-Bot/assets/147051108/a3c
 
 ## Creating the chatbot in NodeRed
 
-Before this week we had talked quite a bit about the idea of our chatbot and which different inputs and outputs it would require. Next to this there were also a lot of different components that we needed to decide would be done algorithmicly and which would require some form of AI. To help us get a better understanding of which flows existed in our desired system we created the following flowchart.
+Before this week we had talked quite a bit about the idea of our chatbot and which different inputs and outputs it would require. Next to this there were also a lot of different components that we needed to decide would be done algorithmicly and which would require some form of AI. To help us get a better understanding of which flows existed in our desired system we created the following flowchart. We also created a diagram in which all the used information/AI calls and databases are shown to create more clarity in the process.
+
+![image](https://github.com/ChylkemaMDEF/MicroChallenge-2-Energy-Bot/assets/147051108/81361c7d-ba27-4b93-a517-b12b61abcae3)
+
 ![Energy Relationships - Frame 4](https://github.com/ChylkemaMDEF/MicroChallenge-2-Energy-Bot/assets/147051108/6891d68a-fe35-4787-ba5f-962272d0618c)
 
 To then transform the idea in our head to an actual working system we took some time to understand what each component might entail and next to this also go back and forth using chatgpt about what potential functions could be used using NodeRed and also through looking at the NodeRed flows we were able to better understand what already exists. Things like using a form of AI like Chatgpt to process information and send data back to storing our data in GoogleSheets were already nodes that existed and could work to make our jobs slightly easier in the end. 

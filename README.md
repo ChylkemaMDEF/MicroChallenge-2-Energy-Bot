@@ -82,16 +82,17 @@ Burden resistance = 2.5V / Secondary P2P current = 2.5V / 70.7mA = 35.4Ω
 ### Circuit Bill of Materials
 
 You will need the following: 
-    *1x Arduino UNO Board - The central microcontroller board for the project.
-    *2x 10k Ohm Resistors (R1 & R2) - Two resistors forming a voltage divider to create a 2.5V DC offset.
-    *1x 33 Ohm Resistor (R3) - The burden resistor connected across the CT terminals.
-    *1x 1k Ohm Resistor (R4) - A current-limiting resistor to protect the ADC pin.
-    *1x 1uF Capacitor - Provides a low impedance bypass to the ground.
-    *1x Current Transformer (CT) - The primary sensor for the project, with a built-in diode for protection and safety.
-    *1x Standard Microphone Jack - Used to connect the CT to the Arduino's analog input A1.
-    *1x Adafruit 1.14" 240x135 Color TFT Breakout LCD Display - This will be used to display the measurements or output from the Arduino UNO.
-    *Jumper Wires/Connectors - To make all the necessary connections on the breadboard or PCB.
-    *1x Breadboard - To build out the prototype circuit.
+
+* 1x Arduino UNO Board - The central microcontroller board for the project.
+* 2x 10k Ohm Resistors (R1 & R2) - Two resistors forming a voltage divider to create a 2.5V DC offset.
+* 1x 33 Ohm Resistor (R3) - The burden resistor connected across the CT terminals.
+* 1x 1k Ohm Resistor (R4) - A current-limiting resistor to protect the ADC pin.
+* 1x 1uF Capacitor - Provides a low impedance bypass to the ground.
+* 1x Current Transformer (CT) - The primary sensor for the project, with a built-in diode for protection and safety.
+* 1x Standard Microphone Jack - Used to connect the CT to the Arduino's analog input A1.
+* 1x Adafruit 1.14" 240x135 Color TFT Breakout LCD Display - This will be used to display the measurements or output from the Arduino UNO.
+* Jumper Wires/Connectors - To make all the necessary connections on the breadboard or PCB.
+* 1x Breadboard - To build out the prototype circuit.
 
 ### How the circuit works
 

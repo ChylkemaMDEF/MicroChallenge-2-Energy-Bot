@@ -1,5 +1,8 @@
 # MicroChallenge-2-Energy-Bot
-Welcome to the second microchallenge taken place during our Masters in Design for Emergent Futures at IAAC and ELISAVA in Barcelona. This challenge is a continuation of Oliver and my thesis project fociussing on energy usage and finding ways to decrease our consumption not only in homes but also in other systems. We worked on part of this project in our first micro challenge which can be found here (https://github.com/Oliver-Lloyd-MDEF/MDEF-Microchallenge-1-Energy-Monitors) 
+Welcome to the second microchallenge taken place during our Masters in Design for Emergent Futures at IAAC and ELISAVA in Barcelona. This project was done by Oliver Lloyd and Carlotta Hylkema, as a continuation of our thesis project fociussing on energy usage and finding ways to decrease our consumption not only in homes but also in other systems. We worked on part of this project in our first micro challenge which can be found here [MicoChallenge 01](https://github.com/Oliver-Lloyd-MDEF/MDEF-Microchallenge-1-Energy-Monitors). If you want to few our personal MDEF sites find them here:
+
+* [Carlotta's Site](https://chylkemamdef.github.io/MyPortfolio/index.html)
+* [Oliver's Site](https://oliver-lloyd-mdef.github.io/Oliver-MDEF-Portfolio/)
 
 # The Goal of this Challenge
 
@@ -8,6 +11,10 @@ After the first micro challenge we got talking about what ways we could push thi
 The defined intelligence is: **An energy consumption chatbot powered by chatgpt to allow users to have a conversation about their energy usage**
 
 The defined artifact is: **A low-tech energy monitor in combination with a AI generated sticker**
+
+# The Plan
+Before executing this challenge both Oliver and I discussed the steps needed to reach our goal, and what are skills were. We really wanted to focus on making this week a mix between software development and hardware design. We decided to split our time between the mornings and afternoons. As we both wanted to do a bit of both we divided the tasks that were AI focussed and those that were focussed on building the nergy monitor around 50/50. On the right of the image below you see the TO DO's with blue and green dots showing who was ultimately in charge of what.
+
 
 # The Process
 
@@ -21,14 +28,20 @@ Before this week we had talked quite a bit about the idea of our chatbot and whi
 
 ![Energy Relationships - Frame 4](https://github.com/ChylkemaMDEF/MicroChallenge-2-Energy-Bot/assets/147051108/6891d68a-fe35-4787-ba5f-962272d0618c)
 
-To then transform the idea in our head to an actual working system we took some time to understand what each component might entail and next to this also go back and forth using chatgpt about what potential functions could be used using NodeRed and also through looking at the NodeRed flows we were able to better understand what already exists. Things like using a form of AI like Chatgpt to process information and send data back to storing our data in GoogleSheets were already nodes that existed and could work to make our jobs slightly easier in the end. 
+To then transform the idea in our head to an actual working system we took some time to understand what each component might entail and next to this also go back and forth using chatgpt about what potential functions could be used using NodeRed and also through looking at the NodeRed flows we were able to better understand what already exists. Things like using a form of AI like Chatgpt to process information and send data back to storing our data in GoogleSheets were already nodes that existed and could work to make our jobs slightly easier in the end.
 ![Energy Relationships - Node-Red Flow Build](https://github.com/ChylkemaMDEF/MicroChallenge-2-Energy-Bot/assets/147051108/4eadfb89-f101-46ba-8cb9-60296ec0b6a4)
 
+To learn more about the google sheets node: [Sheets API Setup](https://flows.nodered.org/flow/a36ccbcfc43c264cda892383fe034fe3) & [Sheets Node Explanation](https://flows.nodered.org/node/node-red-contrib-google-sheets)
+
+To learn more about the chatgpt  node: [Chatgpt Node Explanation](https://flows.nodered.org/node/node-red-contrib-custom-chatgpt)
+
+To learn more about the Dalle node: [Dalle Node Explanation](https://flows.nodered.org/node/node-red-contrib-simple-dalle3)
+
 ### The Bill of Material Energy Bot
-* NodeRed
-* Google Sheets + Sheets API
+* [NodeRed](https://nodered.org)
+* Google Sheets + Sheets API 
 * Google Cloud Project
-* Telegram
+* Telegram 
 * Open AI API Key -> For conversations and image generation
 * Energy monitor below or TAPO Plug
 
@@ -185,7 +198,8 @@ https://github.com/ChylkemaMDEF/MicroChallenge-2-Energy-Bot/assets/147051108/35d
 
 _Outputted Stickers_
 
-As you can see in the video when you ask for energy saving tips it also automatically sends a generated image for a sticker that you can use. For this we then decided to make a physical sticker that people could take and stick to dfferent appliances in a way to raise awareness and potentially in the future also be specific to their own usage. This was just a fun addition we created however for the functionaloty of the system one could keep them as a digital sticker or omit it to save on the energy usage that is needed to run the machine, taking into consideration the use of an AI image generator.  
+As you can see in the video when you ask for energy saving tips it also automatically sends a generated image for a sticker that you can use. For this we then decided to make a physical sticker that people could take and stick to dfferent appliances in a way to raise awareness and potentially in the future also be specific to their own usage. This was just a fun addition we created however for the functionaloty of the system one could keep them as a digital sticker or omit it to save on the energy usage that is needed to run the machine, taking into consideration the use of an AI image generator. These stickers were created through NodeRed by taking the outputted tips Dan generated to the Dalle node in our system. This together with the prompt to create a fun and inspiring sticker based on the inputted tips created the following sticker. 
+
 ![Ontwerp zonder titel (1)](https://github.com/ChylkemaMDEF/MicroChallenge-2-Energy-Bot/assets/147051108/dc17ed3a-15e2-4cfc-94a4-849b00022b9c)
 
 ## The Current state of Energy Measurer

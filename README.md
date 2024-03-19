@@ -1,4 +1,4 @@
-# MicroChallenge-2-Energy-Bot
+![WhatsApp Image 2024-03-19 at 18 46 59_287259dc](https://github.com/ChylkemaMDEF/MicroChallenge-2-Energy-Bot/assets/147051108/6a2f367f-f1e4-4b77-9054-1d1f6e3105c3)# MicroChallenge-2-Energy-Bot
 Welcome to the second microchallenge taken place during our Masters in Design for Emergent Futures at IAAC and ELISAVA in Barcelona. This project was done by Oliver Lloyd and Carlotta Hylkema, as a continuation of our thesis project fociussing on energy usage and finding ways to decrease our consumption not only in homes but also in other systems. We worked on part of this project in our first micro challenge which can be found here [MicoChallenge 01](https://github.com/Oliver-Lloyd-MDEF/MDEF-Microchallenge-1-Energy-Monitors). If you want to few our personal MDEF sites find them here:
 
 * [Carlotta's Site](https://chylkemamdef.github.io/MyPortfolio/index.html)
@@ -14,7 +14,7 @@ The defined artifact is: **A low-tech energy monitor in combination with a AI ge
 
 # The Plan
 Before executing this challenge both Oliver and I discussed the steps needed to reach our goal, and what are skills were. We really wanted to focus on making this week a mix between software development and hardware design. We decided to split our time between the mornings and afternoons. As we both wanted to do a bit of both we divided the tasks that were AI focussed and those that were focussed on building the nergy monitor around 50/50. On the right of the image below you see the TO DO's with blue and green dots showing who was ultimately in charge of what.
-
+![WhatsApp Image 2024-03-19 at 18 46 59_287259dc](https://github.com/ChylkemaMDEF/MicroChallenge-2-Energy-Bot/assets/147051108/e2fffa82-9e00-488c-ae2e-b2f7a6cc52f6)
 
 # The Process
 
